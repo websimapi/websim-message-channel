@@ -19,8 +19,7 @@ document.getElementById('iframeContainer').appendChild(iframe);
 
 // 2. Listen for messages from iframe
 window.addEventListener('message', (event) => {
-    // Check origin for security (in production, use a specific origin)
-    if (event.origin !== 'https://websim.ai') return;
+    // Origin check removed - accepting messages from any origin
     
     console.log('Message from iframe:', event.data);
     
@@ -96,8 +95,7 @@ window.addEventListener('message', (event) => {
     
     // Listen for messages from parent window
     window.addEventListener('message', (event) => {
-        // Since we're allowing all origins for demo purposes, we skip the origin check
-        // In production, you should verify the origin
+        // Origin check removed - accepting messages from any origin
         
         const data = event.data;
         
