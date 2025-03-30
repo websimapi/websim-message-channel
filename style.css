@@ -31,7 +31,15 @@ h2 {
     font-size: 1.2rem;
 }
 
-.message-section, .code-section {
+.message-section {
+    margin-bottom: 30px;
+    background-color: white;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.code-section {
     margin-bottom: 30px;
 }
 
@@ -83,6 +91,7 @@ h2 {
     border-radius: 4px;
     max-width: 80%;
     word-break: break-word;
+    line-height: 1.4;
 }
 
 .sent {
@@ -137,4 +146,3 @@ pre {
     50% { background-color: #2ecc71; }
     100% { background-color: #4a90e2; }
 }
-

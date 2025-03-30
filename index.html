@@ -4,8 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Message Channel</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Add this line to ensure scripts can use postMessage API -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; child-src *; frame-src *">
+    <!-- Updated CSP to allow specific origins -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; child-src https://websim.ai; frame-src https://websim.ai">
 </head>
 <body>
     <div class="container">
