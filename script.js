@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 'https://websim.ai');
         
         // Add message to history
-        addMessage(`You: ${messageText}`, 'sent');
+        addMessage("You: " + messageText, 'sent');
         
         // Clear input
         messageInput.value = '';
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Handle message types
         if (event.data.type === 'message') {
-            addMessage(`Iframe: ${event.data.text}`, 'received');
+            addMessage("Iframe: " + event.data.text, 'received');
         }
     });
     
