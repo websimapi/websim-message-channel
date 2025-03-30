@@ -42,7 +42,13 @@ window.addEventListener('message', (event) => {
             timestamp: new Date().toISOString()
         };
         
-        window.parent.postMessage(message, '*');
+        // Use '*' as target origin to ensure message delivery
+        try {
+            window.parent.postMessage(message, '*');
+            console.log('Message sent to parent:', message);
+        } catch (err) {
+            console.error('Error sending message:', err);
+        }
         
         // Add message to history
         addMessageToHistory(text, 'sent');
@@ -95,11 +101,12 @@ window.addEventListener('message', (event) => {
     
     // Listen for messages from parent window
     window.addEventListener('message', (event) => {
-        // Origin check removed - accepting messages from any origin
+        console.log('Received message event:', event);
         
         const data = event.data;
         
         if (data && data.type === 'response') {
+            console.log('Processing response:', data);
             addMessageToHistory(data.text, 'received');
         }
     });
