@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // 1. Create iframe
 const iframe = document.createElement('iframe');
-iframe.src = '${window.location.href}';
+iframe.src = 'https://message-channel--api.on.websim.ai/';
 iframe.width = '100%';
 iframe.height = '400px';
 document.getElementById('iframeContainer').appendChild(iframe);
@@ -20,7 +20,7 @@ document.getElementById('iframeContainer').appendChild(iframe);
 // 2. Listen for messages from iframe
 window.addEventListener('message', (event) => {
     // Check origin for security
-    if (event.origin !== '${window.location.origin}') return;
+    if (event.origin !== 'https://message-channel--api.on.websim.ai') return;
     
     console.log('Message from iframe:', event.data);
     
@@ -29,7 +29,7 @@ window.addEventListener('message', (event) => {
         iframe.contentWindow.postMessage({
             type: 'response',
             text: 'Message received by parent: ' + event.data.text
-        }, '${window.location.origin}');
+        }, 'https://message-channel--api.on.websim.ai');
     }
 });`;
 
@@ -96,8 +96,11 @@ window.addEventListener('message', (event) => {
     
     // Listen for messages from parent window
     window.addEventListener('message', (event) => {
-        // You might want to check the origin for security in production
-        // if (event.origin !== "expected-origin") return;
+        // Security check for origin
+        if (event.origin !== config.parentOrigin && !config.allowedOrigins.includes('*')) {
+            console.warn('Message received from unauthorized origin:', event.origin);
+            return;
+        }
         
         const data = event.data;
         
@@ -109,4 +112,3 @@ window.addEventListener('message', (event) => {
     // Initial message
     addMessageToHistory('Ready to send and receive messages!', 'received');
 });
-
