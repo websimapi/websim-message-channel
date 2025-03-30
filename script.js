@@ -12,15 +12,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // 1. Create iframe
 const iframe = document.createElement('iframe');
-iframe.src = 'https://message-channel--api.on.websim.ai/';
+iframe.src = 'https://websim.ai/@api/message-channel/';
 iframe.width = '100%';
 iframe.height = '400px';
 document.getElementById('iframeContainer').appendChild(iframe);
 
 // 2. Listen for messages from iframe
 window.addEventListener('message', (event) => {
-    // Check origin for security
-    if (event.origin !== 'https://message-channel--api.on.websim.ai') return;
+    // Check origin for security (in production, use a specific origin)
+    if (event.origin !== 'https://websim.ai') return;
     
     console.log('Message from iframe:', event.data);
     
@@ -29,7 +29,7 @@ window.addEventListener('message', (event) => {
         iframe.contentWindow.postMessage({
             type: 'response',
             text: 'Message received by parent: ' + event.data.text
-        }, 'https://message-channel--api.on.websim.ai');
+        }, 'https://websim.ai');
     }
 });`;
 
@@ -96,11 +96,8 @@ window.addEventListener('message', (event) => {
     
     // Listen for messages from parent window
     window.addEventListener('message', (event) => {
-        // Security check for origin
-        if (event.origin !== config.parentOrigin && !config.allowedOrigins.includes('*')) {
-            console.warn('Message received from unauthorized origin:', event.origin);
-            return;
-        }
+        // Since we're allowing all origins for demo purposes, we skip the origin check
+        // In production, you should verify the origin
         
         const data = event.data;
         
